@@ -7,12 +7,23 @@ using System.Web.Http;
 
 namespace CycloidServer.Controllers
 {
+    public class Lgn {
+        public string Login;
+        public string Password;
+    }
     public class LoginController : ApiController
     {
         // GET api/login
-        public IEnumerable<string> Get()
+        public string Get(string result)
         {
-            return new string[] { "value1", "value2" };
+            var usr = new Models.User();
+            usr.Login = "testuser";
+            usr.Password = "123456";
+            usr.Email = "test@mail.com";
+            usr.PhoneNumber = "+388005553535";
+            DataAccess.User.Registration(usr);
+            string user = Logic.Users.Login(result);
+            return "resp";//user;
         }
 
         // GET api/login/5
@@ -22,10 +33,17 @@ namespace CycloidServer.Controllers
         }
 
         // POST api/login
-        public string Post([FromBody]string value)
+        [HttpPost]
+        public HttpResponseMessage Post([FromBody]string data)
         {
-            string user = Logic.Users.Login(value);
-            return user;
+            var usr = new Models.User();
+            usr.Login = "testuser";
+            usr.Password = "123456";
+            usr.Email = "test@mail.com";
+            usr.PhoneNumber = "+388005553535";
+            DataAccess.User.Registration(usr);
+            string user = Logic.Users.Login("");
+            return Request.CreateResponse(HttpStatusCode.OK ,"resp");//user;
         }
 
         // PUT api/login/5
