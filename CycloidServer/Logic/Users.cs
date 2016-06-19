@@ -19,7 +19,7 @@ namespace CycloidServer.Logic
             else
             {
                 token = Guid.NewGuid().ToString();
-                Models.Token tkn = new Models.Token() { UserId = user.Id, Token = token } ;
+                Models.Token tkn = new Models.Token() { UserId = user.Id, Tkn = token } ;
                 DataAccess.Token.SetToken(tkn);
             }
             return token;
@@ -30,7 +30,7 @@ namespace CycloidServer.Logic
             Models.User user = JsonConvert.DeserializeObject<Models.User>(jsonUser);
             DataAccess.User.Registration(user);
             string token = Guid.NewGuid().ToString();
-            Models.Token tkn = new Models.Token() { UserId = user.Id, Token = token };
+            Models.Token tkn = new Models.Token() { UserId = user.Id, Tkn = token };
             DataAccess.Token.SetToken(tkn);
             return token;
         }

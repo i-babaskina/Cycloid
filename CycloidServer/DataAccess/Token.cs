@@ -21,7 +21,7 @@ namespace CycloidServer.DataAccess
         {
             using (CycloidContext context = new CycloidContext())
             {
-                var tkn = context.Set<Models.Token>().Where(x => x.token == token).FirstOrDefault();
+                var tkn = context.Set<Models.Token>().Where(x => x.Tkn == token).FirstOrDefault();
                 return tkn.UserId;
             }
         }
@@ -30,7 +30,7 @@ namespace CycloidServer.DataAccess
         {
             using (CycloidContext context = new CycloidContext())
             {
-                var tkn = context.Set<Models.Token>().Where(x => x.token == token).FirstOrDefault();
+                var tkn = context.Set<Models.Token>().Where(x => x.Tkn == token).FirstOrDefault();
                 context.Entry(tkn).State = System.Data.EntityState.Deleted;
             }
         }
