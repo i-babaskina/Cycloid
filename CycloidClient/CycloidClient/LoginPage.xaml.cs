@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CycloidClient.DataAccess;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,11 @@ namespace CycloidClient
         public LoginPage()
         {
             this.InitializeComponent();
+        }
+
+        private void OkButtonOnClick(object sender, RoutedEventArgs e)
+        {
+            Requests.Login("d","s");
         }
     }
 }
