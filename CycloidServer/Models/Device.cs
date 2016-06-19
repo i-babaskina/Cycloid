@@ -11,6 +11,7 @@ namespace CycloidServer.Models
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        public string Name { get; set; }
         public string Type { get; set; }
         public Nullable<bool> State { get; set; }
         public int RoomId { get; set; }
