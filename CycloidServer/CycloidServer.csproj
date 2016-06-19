@@ -169,6 +169,7 @@
     <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\WebApiController.cs" />
     <Compile Include="DataAccess\Device.cs" />
     <Compile Include="DataAccess\Room.cs" />
     <Compile Include="DataAccess\Token.cs" />

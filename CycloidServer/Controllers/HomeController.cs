@@ -56,8 +56,7 @@ namespace CycloidServer.Controllers
 
         public string Rooms(string result)
         {
-            int id = Convert.ToInt32(result);
-            return Logic.Rooms.GetRoomsByUser(id);
+            return Logic.Rooms.GetRoomsByUser(result);
         }
 
         public string GetDevice(string result)

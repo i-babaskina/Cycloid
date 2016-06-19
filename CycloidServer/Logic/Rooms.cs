@@ -37,6 +37,13 @@ namespace CycloidServer.Logic
             return JsonConvert.SerializeObject(rooms);
         }
 
+        public static string GetRoomsByUser(string token)
+        {
+            int id = DataAccess.Token.GetUserId(token);
+            var rooms = DataAccess.Room.GetByUser(id);
+            return JsonConvert.SerializeObject(rooms);
+        }
+
         public static void SetMetrics(string data)
         {
             string[] temp = data.Split('|');
