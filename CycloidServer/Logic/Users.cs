@@ -8,11 +8,8 @@ namespace CycloidServer.Logic
 {
     public class Users
     {
-        public static string Login(string data)
+        public static string Login(string login, string pass)
         {
-            string[] split = data.Split('|');
-            string login = split[0];
-            string pass = split[1];
             string token = "";
             var user = DataAccess.User.Login(login, pass);
             if (user == null) token = "Invalid login or password";
@@ -20,6 +17,23 @@ namespace CycloidServer.Logic
             {
                 token = Guid.NewGuid().ToString();
                 Models.Token tkn = new Models.Token() { UserId = user.Id, Tkn = token } ;
+                DataAccess.Token.SetToken(tkn);
+            }
+            return token;
+        }
+
+        public static string Login(string data)
+        {
+            string[] tmp = data.Split('|');
+            string login = tmp[0];
+            string pass = tmp[1];
+            string token = "";
+            var user = DataAccess.User.Login(login, pass);
+            if (user == null) token = "Invalid login or password";
+            else
+            {
+                token = Guid.NewGuid().ToString();
+                Models.Token tkn = new Models.Token() { UserId = user.Id, Tkn = token };
                 DataAccess.Token.SetToken(tkn);
             }
             return token;

@@ -14,9 +14,9 @@ namespace CycloidServer.Controllers
             return View();
         }
 
-        public string login(string result)
+        public string login(string login, string pass)
         {
-            string user = Logic.Users.Login(result);
+            string user = Logic.Users.Login(login, pass);
             return user;
         }
 
