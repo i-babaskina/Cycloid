@@ -11,7 +11,7 @@ namespace CycloidClient.DataAccess
 {
     class ServerConnection
     {
-        static string serverUrl = "http://localhost:57180/";
+        const string serverUrl = "http://localhost:57180/";
         public async Task<string> PostAsync(string url, List<KeyValuePair<string, string>> postData)
         {
             try

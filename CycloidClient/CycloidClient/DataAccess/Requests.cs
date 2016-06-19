@@ -15,7 +15,7 @@ namespace CycloidClient.DataAccess
             List<KeyValuePair<string, string>> data = new List<KeyValuePair<string, string>>();
             data.Add(new KeyValuePair<string, string>("login", login));
             data.Add(new KeyValuePair<string, string>("pass", password));
-            string res = await connection.PostAsync("api/login", data);
+            string res = await connection.PostAsync("home/login", data);
             return res;
         }
     }

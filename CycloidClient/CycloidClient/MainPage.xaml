@@ -9,8 +9,31 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition MinWidth="300"/>
-            <ColumnDefinition MinWidth="300"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <ListView x:Name="RoomsListView"
+                  Grid.Column="0"/>
+    
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="NameTextBlock"
+                       Grid.Row="0"/>
+
+            <TextBlock x:Name="TemperatureTextBlock"
+                       Grid.Row="1"/>
+
+            <TextBlock x:Name="HumidityTextBlock"
+                       Grid.Row="2"/>
+
+            <ListView x:Name="DevicesListView"
+                  Grid.Column="3"/>
+        </Grid>
     </Grid>
 </Page>

@@ -28,9 +28,18 @@ namespace CycloidClient
             this.InitializeComponent();
         }
 
-        private void OkButtonOnClick(object sender, RoutedEventArgs e)
+        private async void OkButtonOnClick(object sender, RoutedEventArgs e)
         {
-            Requests.Login("d","s");
+            var res = await Requests.Login(LoginTextBox.Text, PasswordPasswordBox.Password);
+            if(res == "Invalid login or password")
+            {
+                ErrorTextBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values["token"] = res;
+                this.Frame.Navigate(typeof(MainPage));
+            }
         }
     }
 }

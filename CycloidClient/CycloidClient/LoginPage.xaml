@@ -16,7 +16,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="35"/>
                 <RowDefinition Height="35"/>
-                <RowDefinition Height="30"/>
+                <RowDefinition Height="35"/>
                 <RowDefinition Height="35"/>
                 <RowDefinition Height="35"/>
                 <RowDefinition Height="35"/>
@@ -31,21 +31,27 @@
                      VerticalAlignment="Center"/>
 
             <TextBlock Text="Enter password here:"
-                       Grid.Row="3"
+                       Grid.Row="2"
                        VerticalAlignment="Center"/>
 
             <PasswordBox x:Name="PasswordPasswordBox"
-                         Grid.Row="4"
+                         Grid.Row="3"
                          VerticalAlignment="Center"/>
 
             <Button x:Name="OkButton"
-                    Grid.Row="5"
+                    Grid.Row="4"
                     Content="Ok"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Margin="0,0,15,0"
                     Width="50"
                     Click="OkButtonOnClick"/>
+            
+            <TextBlock x:Name="ErrorTextBlock"
+                       Foreground="Red"
+                       Grid.Row="5"
+                       Text="Invalid login or password"
+                       Visibility="Collapsed"/>
         </Grid>
     </Grid>
 </Page>
