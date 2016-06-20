@@ -15,7 +15,9 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using static CycloidClient.DataAccess.Requests;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -26,6 +28,9 @@ namespace CycloidClient
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        Device selectedDevice = new Device();
+        Room selectedRoom = new Room();
+        DispatcherTimer updateTimer = new DispatcherTimer();
         ObservableCollection<Room> rooms = new ObservableCollection<Room>();
         public ObservableCollection<Room> Rooms
         {
@@ -53,20 +58,36 @@ namespace CycloidClient
 
         private async Task Init()
         {
-           Rooms = await Requests.LoadRooms();
+            border.Visibility = Visibility.Collapsed;
+            Rooms = await LoadRooms();
             RoomsListView.ItemsSource = Rooms;
             RoomsListView.SelectedIndex = 0;
+            updateTimer.Interval = TimeSpan.FromSeconds(10);
+            updateTimer.Tick += UpdateTimerOnTick;      
         }
 
+        private async void UpdateTimerOnTick(object sender, object e)
+        {
+            selectedRoom  = await Requests.GetRoom(selectedRoom.Id);
+            UpdateRoomInfo(selectedRoom);
+        }
 
         private void RoomsListViewOnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Room temp = RoomsListView.SelectedItem as Room;
-            NameTextBlock.Text = temp.Name;
-            TemperatureTextBlock.Text = temp.Temperature.ToString()+ " °C";
-            HumidityTextBlock.Text = "Humidity: " + temp.Humidity.ToString() + "%";
-            DevicesListView.ItemsSource = temp.Device;
+            Room selectedRoom = RoomsListView.SelectedItem as Room;
+            UpdateRoomInfo(selectedRoom);
+            updateTimer.Start();
         }
+
+        void UpdateRoomInfo(Room room)
+        {
+            NameTextBlock.Text = room.Name;
+            TemperatureTextBlock.Text = room.Temperature.ToString() + " °C";
+            HumidityTextBlock.Text = "Humidity: " + room.Humidity.ToString() + "%";
+            DevicesListView.ItemsSource = room.Device;
+        }
+
+
 
         private void LogoutButtonOnClick(object sender, RoutedEventArgs e)
         {
@@ -77,8 +98,31 @@ namespace CycloidClient
 
         private void DevicesListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            
+            ConfigDevice(e.ClickedItem as Device);
+        }
 
+        private void ConfigDevice(Device dev)
+        {
+            selectedDevice = dev;
+            border.Visibility = Visibility.Visible;
+            DeviceNameTb.Text = dev.Name;
+            DeviceTypeTb.Text = dev.Type;
+            IsAutomaticSwitch.IsOn = dev.IsAutomaticOnff;
+            MinTempTb.Value = dev.OnTemperature;
+            MaxTempTb.Value = dev.OffTemperature;
+            StateSwich.IsOn = dev.State;
+        }
+
+        private async void SaveOnClick(object sender, RoutedEventArgs e)
+        {
+            border.Visibility = Visibility.Collapsed;
+            selectedDevice.Name = DeviceNameTb.Text;
+            selectedDevice.Type = DeviceTypeTb.Text;
+            selectedDevice.IsAutomaticOnff = IsAutomaticSwitch.IsOn;
+            selectedDevice.OnTemperature = MinTempTb.Value;
+            selectedDevice.OffTemperature = MaxTempTb.Value;
+            selectedDevice.State = StateSwich.IsOn;
+            await UpdateDevice(selectedDevice);
         }
     }
 }

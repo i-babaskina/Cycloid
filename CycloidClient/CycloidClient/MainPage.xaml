@@ -7,78 +7,164 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="15">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid>
-            
-        </Grid>
-        <Border BorderThickness="3"
+   
+    <Grid x:Name="RootGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+
+        <Grid Margin="15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid>
+
+            </Grid>
+            <Border BorderThickness="3"
                 BorderBrush="Black"
                 Grid.Column="0">
-        <ListView x:Name="RoomsListView"
+                <ListView x:Name="RoomsListView"
                   SelectionChanged="RoomsListViewOnSelectionChanged">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <TextBlock Text="{Binding Name}"
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBlock Text="{Binding Name}"
                                    FontSize="25"/>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        </Border>
-        <Border BorderThickness="3"
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Border>
+            <Border BorderThickness="3"
                 BorderBrush="Black"
                 Grid.Column="1">
-        <Grid Margin="30,0,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+                <Grid Margin="30,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-            <TextBlock x:Name="NameTextBlock"
+                    <TextBlock x:Name="NameTextBlock"
                        Grid.Row="0"
                        FontSize="32"/>
 
-            <Button x:Name="LogoutButton"
+                    <Button x:Name="LogoutButton"
                     Margin="0,0,20,0"
                     Grid.Row="0"
                     HorizontalAlignment="Right"
                     Click="LogoutButtonOnClick"
                     Content="Logout"/>
 
-            <TextBlock x:Name="TemperatureTextBlock"
+                    <TextBlock x:Name="TemperatureTextBlock"
                        Grid.Row="1"
                        FontSize="72"/>
 
-            <TextBlock x:Name="HumidityTextBlock"
+                    <TextBlock x:Name="HumidityTextBlock"
                        Grid.Row="2"
                        FontSize="40"/>
 
-            <ListView x:Name="DevicesListView"
+                    <ListView x:Name="DevicesListView"
                       Grid.Row="3"
                       Margin="20,50,20,0"
                       SelectionMode="None"
                       IsItemClickEnabled="True"
                       ItemClick="DevicesListView_ItemClick">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                            <Border>
-                            <TextBlock Text="{Binding Name}"
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border>
+                                    <TextBlock Text="{Binding Name}"
                                        VerticalAlignment="Center"
                                        FontSize="20"
                                        Grid.Column="0"/>
-                            </Border>
-                        </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </Border>
         </Grid>
-        </Border>
+
+        <Grid BorderBrush="Gray" 
+                BorderThickness="2"
+                x:Name="border"
+                HorizontalAlignment="Left"
+                Height="{Binding ElementName=RootGrid, Path=Height}"
+                Width="300"
+                 Background="#f5f5f5">
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                
+                <TextBlock Text="Name:"
+                           Grid.Row="0"
+                           VerticalAlignment="Bottom"/>
+
+                <TextBox Name="DeviceNameTb"
+                         Grid.Row="1"/>
+                
+                <TextBlock Text="Type:"
+                           Grid.Row="2"
+                           VerticalAlignment="Bottom"/>
+
+                <TextBox Name="DeviceTypeTb"
+                         Grid.Row="3"/>
+                
+                <TextBlock Text="Is automatic:"
+                           Grid.Row="4"
+                           VerticalAlignment="Bottom"/>
+
+                <ToggleSwitch Name="IsAutomaticSwitch"
+                         Grid.Row="5"/>
+                
+                <TextBlock Text="Min temperature:"
+                           Grid.Row="6"
+                           VerticalAlignment="Bottom"/>
+
+                <Slider Name="MinTempTb"
+                         Grid.Row="7"
+                        Maximum="40"
+                        Minimum="-15"
+                         IsEnabled="{Binding ElementName=IsAutomaticSwitch, Path=IsOn}"/>
+                
+                <TextBlock Text="Max temperature:"
+                           Grid.Row="8"
+                           VerticalAlignment="Bottom"/>
+
+                <Slider Name="MaxTempTb"
+                         Grid.Row="9"
+                        Maximum="40"
+                        Minimum="-15"
+                         IsEnabled="{Binding ElementName=IsAutomaticSwitch, Path=IsOn}"/>
+
+                <TextBlock Text="State:"
+                           Grid.Row="10"
+                           VerticalAlignment="Bottom"/>
+
+                <ToggleSwitch Name="StateSwich"
+                         Grid.Row="11"/>
+
+                <Button Name="Save"
+                        Content="Save"
+                        Grid.Row="12"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Margin="0,0,20,0"
+                        Click="SaveOnClick"/>
+            </Grid>
+        </Grid>
+
     </Grid>
 </Page>

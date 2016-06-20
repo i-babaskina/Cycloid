@@ -11,10 +11,10 @@ namespace CycloidClient.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
-        public Nullable<bool> State { get; set; }
+        public bool State { get; set; }
         public int RoomId { get; set; }
-        public Nullable<double> OnTemperature { get; set; }
-        public Nullable<double> OffTemperature { get; set; }
+        public double OnTemperature { get; set; }
+        public double OffTemperature { get; set; }
         public bool IsAutomaticOnff { get; set; }
         public virtual Room Room { get; set; }
     }

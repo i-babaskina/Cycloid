@@ -32,5 +32,22 @@ namespace CycloidClient.DataAccess
             ObservableCollection<Room> rooms = JsonConvert.DeserializeObject<ObservableCollection<Room>>(res);
             return rooms;
         }
+
+        internal static async Task UpdateDevice(Device device)
+        {
+            string json = JsonConvert.SerializeObject(device);
+            List<KeyValuePair<string, string>> data = new List<KeyValuePair<string, string>>();
+            data.Add(new KeyValuePair<string, string>("result", json));
+            await connection.PostAsync("home/updatedevice", data);
+        }
+
+        internal static async Task<Room> GetRoom(int id)
+        {
+            List<KeyValuePair<string, string>> data = new List<KeyValuePair<string, string>>();
+            data.Add(new KeyValuePair<string, string>("result", id.ToString()));
+            string res = await connection.PostAsync("home/getroom", data);
+            Room room = JsonConvert.DeserializeObject<Room>(res);
+            return room;
+        }
     }
 }
