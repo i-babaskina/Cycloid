@@ -87,5 +87,11 @@ namespace CycloidServer.Controllers
             int id = Convert.ToInt32(result);
             return Logic.Devices.GetDevicesByRoom(id);
         }
+
+        public string Emu(string id, string temperature, string humidity)
+        {
+            Random rnd = new Random();
+            return rnd.Next(0,1)==0?"true":"false";
+        }
     }
 }
